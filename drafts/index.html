@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>this sentence does not exist</title>
+<style>
+  :root{
+    --bg:#ffffff;
+    --ink:#1a1a24;
+    --muted:#7a7a8c;
+    --line:#d9d9e3;
+    --accent:#2a2a91;        /* classic web blue (win/default) */
+    --accent-2:#6a0dad;      /* purple (already-said) */
+    --link:#1a1ac9;          /* 90s result-link blue */
+    --visited:#6a0dad;       /* 90s visited purple */
+    --metagreen:#1a7a3a;     /* result "url" green */
+    --face:#d4d0c8;          /* win98 button face */
+    --web:Verdana,Geneva,Tahoma,sans-serif;
+    --serif:Georgia,"Times New Roman",Times,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg);color:var(--ink);font-family:var(--web);
+    font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  }
+  main{
+    min-height:100vh;max-width:820px;margin:0 auto;padding:0 24px;
+    display:grid;grid-template-rows:minmax(0,1fr) minmax(0,1.15fr) minmax(0,0.85fr);
+  }
+  .zone{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 0;min-height:0}
+  .zone.mid{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+  /* ---------- TOP THIRD: logo + search ---------- */
+  .logo{font-family:var(--serif);font-weight:700;font-size:clamp(30px,5vw,46px);letter-spacing:-1px;line-height:1.1;margin-bottom:6px}
+  .logo .w0{color:#1a3fd6}
+  .logo .w1{color:#5b2fe0}
+  .logo .w2{color:#9b2fb5}
+  .logo .w3{color:#2a2a91}
+  .logo .w4{color:#7a3ff0}
+  .tagline{font-family:var(--serif);font-style:italic;font-size:clamp(14px,2vw,17px);color:var(--muted);margin-bottom:22px}
+
+  form{width:100%;max-width:600px}
+  .name-row{margin-bottom:14px;font-size:13px;color:var(--muted)}
+  .name-row label{margin-right:8px}
+  .name{
+    background:#fff;border:2px inset var(--face);font-family:var(--web);
+    font-size:14px;color:var(--ink);text-align:left;padding:5px 8px;width:230px;outline:none;
+  }
+  .name:focus{outline:1px dotted var(--accent)}
+
+  .searchbar{display:flex;justify-content:center}
+  #sentence{
+    flex:0 1 540px;background:#fff;border:2px inset var(--face);
+    font-family:var(--web);font-size:16px;color:var(--ink);padding:9px 12px;outline:none;
+  }
+  #sentence:focus{outline:1px dotted var(--accent)}
+
+  .btns{display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+  .btn98{
+    border:2px outset var(--face);background:var(--face);color:#222;
+    font-family:var(--web);font-size:13px;padding:6px 16px;cursor:pointer;
+  }
+  .btn98:active{border-style:inset}
+  .btn98:disabled{color:#8a8a8a;cursor:default}
+
+  /* ---------- MIDDLE THIRD: recent feed -> stats ---------- */
+  .panel{width:100%;max-width:680px;display:flex;flex-direction:column;min-height:0;height:100%}
+  .panel-head{
+    font-family:var(--web);font-size:11px;letter-spacing:.5px;text-transform:uppercase;
+    color:var(--muted);text-align:left;padding:0 2px 8px;border-bottom:1px solid var(--line);margin-bottom:6px;flex:0 0 auto;
+  }
+  .panel-head .blink{color:var(--metagreen)}
+
+  /* scrolling recent-submissions ticker, styled like old search results */
+  .ticker{position:relative;overflow:hidden;flex:1 1 auto;min-height:120px;text-align:left;
+    -webkit-mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
+            mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);}
+  .ticker-track{position:absolute;left:0;right:0;top:0;animation:scrollup 32s linear infinite}
+  .ticker:hover .ticker-track{animation-play-state:paused}
+  @keyframes scrollup{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+  .result{padding:9px 6px;border-bottom:1px dotted var(--line)}
+  .result .r-link{color:var(--link);font-size:16px;text-decoration:underline;cursor:pointer;font-family:var(--serif)}
+  .result .r-link:hover{color:#d00}
+  .result .r-link.seen{color:var(--visited)}
+  .result .r-meta{color:var(--metagreen);font-size:12px;margin-top:2px}
+  .result .r-meta b{color:var(--muted);font-weight:400}
+
+  .stats{display:flex;gap:56px;flex-wrap:wrap;justify-content:center;align-items:flex-start;flex:1 1 auto;align-content:center}
+  .stat .num{font-family:var(--serif);font-size:60px;font-weight:700;line-height:1;color:var(--accent)}
+  .stat .lbl{font-size:12px;color:var(--muted);margin-top:12px;max-width:170px;letter-spacing:.3px}
+  .muted{color:var(--muted);font-size:14px;align-self:center;flex:1 1 auto;display:flex;align-items:center;justify-content:center}
+
+  /* ---------- BOTTOM THIRD: verdict / quip ---------- */
+  .verdict{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  .quip{font-family:var(--serif);font-size:23px;line-height:1.4;color:var(--ink);max-width:600px}
+  .hint{color:var(--muted);font-size:12px;font-style:italic}
+  .marquee-tip{color:var(--muted);font-size:12px}
+
+  /* ---------- STATE TINTS ---------- */
+  body.state-lose{--accent:var(--accent-2)}
+</style>
+</head>
+<body>
+  <main>
+    <!-- TOP THIRD -->
+    <section class="zone top">
+      <div class="logo">
+        <span class="w0">What</span> <span class="w1">say</span> <span class="w2">you,</span>
+        <span class="w3">weary</span> <span class="w4">traveler?</span>
+      </div>
+      <div class="tagline">Tell me something I have never heard before&hellip;</div>
+      <form id="form">
+        <div class="name-row">
+          <label for="username">traveler:</label>
+          <input id="username" class="name" autocomplete="off" placeholder="what shall we call you?" />
+        </div>
+        <div class="searchbar">
+          <input id="sentence" autocomplete="off" placeholder="type a sentence nobody has ever said&hellip;" required />
+        </div>
+        <div class="btns">
+          <button id="submit" class="btn98" type="submit">Search the Corpus</button>
+          <button id="lucky" class="btn98" type="submit">I&rsquo;m Feeling Original</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- MIDDLE THIRD -->
+    <section class="zone mid">
+      <div class="panel">
+        <div class="panel-head">Recently said &middot; <span class="blink">live from the corpus</span></div>
+        <div class="stats" id="stats"></div>
+      </div>
+    </section>
+
+    <!-- BOTTOM THIRD -->
+    <section class="zone bot">
+      <div class="answer" id="answer">
+        <div class="marquee-tip">Tip: click any sentence above to borrow it &mdash; if you dare.</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>renderThirds({ idleFeed:true, labels:{ win:"original", lose:"already said" } });</script>
+</body>
+</html>
