@@ -98,15 +98,45 @@
   .hint{color:var(--muted);font-size:12px;font-style:italic}
   .marquee-tip{color:var(--muted);font-size:12px}
 
+  /* ---------- TOP BANNER ---------- */
+  .banner{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    height:42px;padding:0 16px;background:var(--face);
+    border-bottom:2px outset var(--face);font-family:var(--web);
+  }
+  .banner-name{
+    flex:0 0 auto;font-family:var(--serif);font-weight:700;font-size:17px;
+    color:var(--accent);letter-spacing:-.3px;white-space:nowrap;
+  }
+  .banner-welcome{
+    flex:1 1 auto;min-width:0;text-align:center;
+    font-family:var(--serif);font-style:italic;font-size:12px;color:var(--muted);
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .banner-count{
+    flex:0 0 auto;display:flex;align-items:center;gap:7px;white-space:nowrap;
+    font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;
+  }
+  .counter{
+    font-family:"Courier New",monospace;font-size:14px;font-weight:700;
+    background:#000;color:#37ff6b;border:2px inset var(--face);
+    padding:1px 7px;letter-spacing:2px;
+  }
+  @media (max-width:560px){ .banner-welcome{display:none} }
+
   /* ---------- SIDE RAILS ---------- */
   .layout{
-    min-height:100vh;margin:0 auto;
-    display:grid;grid-template-columns:minmax(0,240px) minmax(0,720px) minmax(0,240px);
-    justify-content:center;
+    min-height:calc(100vh - 42px);margin:0 auto;
+    display:grid;grid-template-columns:minmax(170px,215px) minmax(0,660px) minmax(170px,215px);
+    justify-content:center;column-gap:10px;
   }
-  .rail{height:100vh;position:sticky;top:0;padding:22px 14px;min-width:0;
+  .rail{height:calc(100vh - 42px);position:sticky;top:0;padding:22px 14px;min-width:0;
     display:flex;flex-direction:column;justify-content:center}
-  .rail-box{border:2px outset var(--face);background:#fff;display:flex;flex-direction:column;max-height:82vh;overflow:hidden}
+  .rail-box{border:2px outset var(--face);background:#fff;display:flex;flex-direction:column;overflow:hidden}
+  /* left leaderboard: compact box, centered in the rail */
+  .rail-left .rail-box{max-height:86vh}
+  /* right scroller: fill the rail's full height so it scrolls like the middle feed */
+  .rail-right .rail-box{flex:1 1 auto;min-height:0;margin:6px 0}
   .rail-head{
     flex:0 0 auto;background:var(--accent);color:#fff;font-family:var(--web);
     font-size:12px;font-weight:700;letter-spacing:.5px;padding:5px 9px;
@@ -125,9 +155,9 @@
   .board .score b{color:var(--muted);font-weight:400}
 
   /* right rail: random-originals scroller (reuses @keyframes scrollup) */
-  .scroller{position:relative;overflow:hidden;flex:1 1 auto;min-height:220px;
-    -webkit-mask-image:linear-gradient(180deg,transparent,#000 10%,#000 90%,transparent);
-            mask-image:linear-gradient(180deg,transparent,#000 10%,#000 90%,transparent)}
+  .scroller{position:relative;overflow:hidden;flex:1 1 auto;min-height:0;
+    -webkit-mask-image:linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent);
+            mask-image:linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent)}
   .scroller-track{position:absolute;left:0;right:0;top:0;animation:scrollup 46s linear infinite}
   .scroller:hover .scroller-track{animation-play-state:paused}
   .s-item{padding:9px 9px;border-bottom:1px dotted var(--line)}
@@ -137,8 +167,8 @@
   .s-item .s-who{display:block;color:var(--metagreen);font-size:11px;margin-top:3px}
 
   /* rails are decorative side matter — drop them when there's no room */
-  @media (max-width:1040px){
-    .layout{grid-template-columns:minmax(0,820px)}
+  @media (max-width:880px){
+    .layout{grid-template-columns:minmax(0,720px)}
     .rail{display:none}
   }
 
@@ -147,6 +177,11 @@
 </style>
 </head>
 <body>
+  <header class="banner">
+    <div class="banner-name">this sentence does not exist</div>
+    <div class="banner-welcome">welcome, weary traveler &mdash; tell us something never said before</div>
+    <div class="banner-count">submissions <span class="counter" id="subcount">&mdash;</span></div>
+  </header>
   <div class="layout">
     <!-- LEFT RAIL: leaderboard -->
     <aside class="rail rail-left">
@@ -178,12 +213,9 @@
       </form>
     </section>
 
-    <!-- MIDDLE THIRD -->
+    <!-- MIDDLE THIRD: search results land here (empty until a search runs) -->
     <section class="zone mid">
-      <div class="panel">
-        <div class="panel-head">Recently said &middot; <span class="blink">live from the corpus</span></div>
-        <div class="stats" id="stats"></div>
-      </div>
+      <div class="stats" id="stats"></div>
     </section>
 
     <!-- BOTTOM THIRD -->
@@ -203,7 +235,7 @@
     </aside>
   </div>
 
-  <script src="app.js"></script>
-  <script>renderThirds({ idleFeed:true, labels:{ win:"original", lose:"already said" } });</script>
+  <script src="app.js?v=3"></script>
+  <script>renderThirds({ idleFeed:false, labels:{ win:"original", lose:"already said" } });</script>
 </body>
 </html>

@@ -183,6 +183,9 @@ function renderThirds(opts = {}) {
   const scrollEl = document.getElementById("scroller");
   if (scrollEl) renderScroller(scrollEl);
 
+  // Banner submission counter (present on the search-engine layout).
+  updateSubmissionCount();
+
   wireForm({
     onPending: () => {
       setState();
@@ -209,6 +212,8 @@ function renderThirds(opts = {}) {
         answerEl.innerHTML =
           `<div class="verdict">${esc(L.lose)}</div><div class="quip">${esc(r.message)}</div>`;
       }
+      // The submission just changed the corpus total — reflect it in the banner.
+      updateSubmissionCount();
     },
   });
 }
@@ -317,6 +322,18 @@ async function renderScroller(el) {
       }
     });
   });
+}
+
+// Banner: total submissions across the whole corpus, shown as a retro counter.
+async function updateSubmissionCount() {
+  const el = document.getElementById("subcount");
+  if (!el) return;
+  try {
+    const n = await API.submissionCount();
+    el.textContent = Number(n).toLocaleString();
+  } catch (_) {
+    /* leave the current value in place on error */
+  }
 }
 
 // The one renderer every theme uses. Pass {labels:{...}} to flavor the words.
