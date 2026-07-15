@@ -119,6 +119,7 @@ class RecentSentence(BaseModel):
     awarded: datetime
 
 
+# TODO: Replace
 POSITIVE_MESSAGES = [
     "Never heard it before. The corpus bows to you.",
     "A genuine original — nobody has ever said this.",
@@ -127,6 +128,7 @@ POSITIVE_MESSAGES = [
     "Unheard of. Literally. It's in the ledger now.",
 ]
 
+# TODO: Replace
 NEGATIVE_MESSAGES = [
     "Alas — these words have echoed here before.",
     "Someone beat you to it. The corpus remembers.",
@@ -215,9 +217,7 @@ class ApiController(Controller):
         return [RandomSentence(**row) for row in rows]
 
     @get("/recent")
-    async def recent(
-        self, request: Request, limit: int = 12
-    ) -> list[RecentSentence]:
+    async def recent(self, request: Request, limit: int = 12) -> list[RecentSentence]:
         engine = request.app.state.engine
         async with engine.connect() as conn:
             result = await conn.execute(RECENT_SENTENCES, {"limit": limit})

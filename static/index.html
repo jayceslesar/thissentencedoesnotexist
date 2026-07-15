@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>this sentence does not exist</title>
+<title>world wide well of words</title>
 <style>
   :root{
     --bg:#ffffff;
@@ -26,10 +26,10 @@
     font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
   }
   main{
-    min-height:100vh;min-width:0;padding:0 24px;
-    display:grid;grid-template-rows:minmax(0,1fr) minmax(0,1.15fr) minmax(0,0.85fr);
+    min-height:calc(100vh - 42px);min-width:0;padding:34px 24px 0;
+    display:grid;grid-template-rows:auto auto auto;align-content:start;row-gap:10px;
   }
-  .zone{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 0;min-height:0}
+  .zone{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px 0;min-height:0}
   .zone.mid{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 
   /* ---------- TOP THIRD: logo + search ---------- */
@@ -64,6 +64,7 @@
   }
   .btn98:active{border-style:inset}
   .btn98:disabled{color:#8a8a8a;cursor:default}
+  .zone.bot{ margin-top:100px; }
 
   /* ---------- MIDDLE THIRD: recent feed -> stats ---------- */
   .panel{width:100%;max-width:680px;display:flex;flex-direction:column;min-height:0;height:100%}
@@ -133,8 +134,8 @@
   .rail{height:calc(100vh - 42px);position:sticky;top:0;padding:22px 14px;min-width:0;
     display:flex;flex-direction:column;justify-content:center}
   .rail-box{border:2px outset var(--face);background:#fff;display:flex;flex-direction:column;overflow:hidden}
-  /* left leaderboard: compact box, centered in the rail */
-  .rail-left .rail-box{max-height:86vh}
+  /* left leaderboard: fill the full rail height, same as the scroller */
+  .rail-left .rail-box{flex:1 1 auto;min-height:0;margin:6px 0}
   /* right scroller: fill the rail's full height so it scrolls like the middle feed */
   .rail-right .rail-box{flex:1 1 auto;min-height:0;margin:6px 0}
   .rail-head{
@@ -213,18 +214,19 @@
       </form>
     </section>
 
-    <!-- MIDDLE THIRD: search results land here (empty until a search runs) -->
-    <section class="zone mid">
-      <div class="stats" id="stats"></div>
-    </section>
-
-    <!-- BOTTOM THIRD -->
+    <!-- Reply Block-->
     <section class="zone bot">
       <div class="answer" id="answer">
         <div class="marquee-tip">Tip: click any sentence above to borrow it &mdash; if you dare.</div>
       </div>
     </section>
+
+    <!-- Result stats block-->
+    <section class="zone mid">
+      <div class="stats" id="stats"></div>
+    </section>
   </main>
+
 
     <!-- RIGHT RAIL: random originals scroller -->
     <aside class="rail rail-right">
