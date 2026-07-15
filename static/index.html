@@ -42,7 +42,7 @@
   .tagline{font-family:var(--serif);font-style:italic;font-size:clamp(14px,2vw,17px);color:var(--muted);margin-bottom:22px}
 
   form{width:100%;max-width:600px}
-  .name-row{margin-bottom:14px;font-size:13px;color:var(--muted)}
+  .name-row{margin-top:14px;font-size:13px;color:var(--muted)}
   .name-row label{margin-right:8px}
   .name{
     background:#fff;border:2px inset var(--face);font-family:var(--web);
@@ -179,9 +179,9 @@
 </head>
 <body>
   <header class="banner">
-    <div class="banner-name">this sentence does not exist</div>
-    <div class="banner-welcome">welcome, weary traveler &mdash; tell us something never said before</div>
-    <div class="banner-count">submissions <span class="counter" id="subcount">&mdash;</span></div>
+    <div class="banner-name">welcome to the world wide well of words!</div>
+    <div class="banner-welcome">go on, say something never said since seasons began </div>
+    <div class="banner-count">total tales told<span class="counter" id="subcount">&mdash;</span></div>
   </header>
   <div class="layout">
     <!-- LEFT RAIL: leaderboard -->
@@ -196,17 +196,16 @@
     <!-- TOP THIRD -->
     <section class="zone top">
       <div class="logo">
-        <span class="w0">What</span> <span class="w1">say</span> <span class="w2">you,</span>
-        <span class="w3">weary</span> <span class="w4">traveler?</span>
+        <span class="w0">Has</span> <span class="w1">anyone</span> <span class="w2">ever</span>
+        <span class="w3">said...</span>
       </div>
-      <div class="tagline">Tell me something I have never heard before&hellip;</div>
       <form id="form">
-        <div class="name-row">
-          <label for="username">traveler:</label>
-          <input id="username" class="name" autocomplete="off" placeholder="what shall we call you?" />
-        </div>
         <div class="searchbar">
-          <input id="sentence" autocomplete="off" placeholder="type a sentence nobody has ever said&hellip;" required />
+          <input id="sentence" autocomplete="off" placeholder="words to be written down in history&hellip;" required />
+        </div>
+        <div class="name-row">
+          <label for="username">author:</label>
+          <input id="username" class="name" autocomplete="off" placeholder="your pen name?" />
         </div>
         <div class="btns">
           <button id="submit" class="btn98" type="submit">wager dignity</button>
